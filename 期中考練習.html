@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <select name="" class="area" id="">
+        <option value="苓雅區">苓雅區</option>
+        <option value="前鎮區">前鎮區</option>
+        <option value="楠梓區">楠梓區</option>
+        <option value="大社區">大社區</option>
+        <option value="小港區">小港區</option>
+        <option value="鳳山區">鳳山區</option>
+        <option value="左營區">左營區</option>
+        <option value="路竹區">路竹區</option>
+        <option value="美濃區">美濃區</option>
+        <option value="橋頭區">橋頭區</option>
+        <option value="岡山區">岡山區</option>
+        <option value="三民區">三民區</option>
+        <option value="湖內區">湖內區</option>
+        <option value="旗山區">旗山區</option>
+        <option value="鳥松區">鳥松區</option>
+        <option value="燕巢區">燕巢區</option>
+        <option value="大寮區">大寮區</option>
+        <option value="鼓山區">鼓山區</option>
+        <option value="彌陀區">彌陀區</option>
+        <option value="仁武區">仁武區</option>
+    </select>
+    <select name="" class="unit" id="">
+        <option value="水利局防洪維護科">水利局防洪維護科</option>
+        <option value="養工處">養工處</option>
+        <option value="環保局">環保局</option>
+        <option value="交通局">交通局</option>
+        <option value="警察局">警察局</option>
+        <option value="動物保護處">動物保護處</option>
+        <option value="台電公司">台電公司</option>
+    </select>
+    <input type="button" class="button" value="選擇">
+    <br>
+    <ul class="list1"></ul>
+    <ul class="list2"></ul>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', "https://work1999.kcg.gov.tw/open1999/ServiceRequestsQuery.asmx/ServiceRequestsQuery", true);
+        xhr.send();
+
+        xhr.onload = function () {
+            var data = JSON.parse(xhr.responseText);
+            console.log(data[0].ZipName_);
+            var button = document.querySelector('.button');
+            button.addEventListener('click', function (e) {
+                var area = document.querySelector('.area').value;
+                var unit = document.querySelector('.unit').value;
+                var list1 = document.querySelector('.list1');
+                var list2 = document.querySelector('.list2');
+                var str1 = '';
+                var str2 = '';
+
+                for (var i = 0; i < data.length; i++) {
+                    if (area == data[i].ZipName_ && unit == data[i].UnitName_) {
+                        str1 += '<li>' + data[i].InformDesc_+" "+data[i].BeforeDesc_ + '</li>';
+                    }
+                    list1.innerHTML = str1;
+                }})
+        }
+
+    </script>
+</body>
+
+</html>
